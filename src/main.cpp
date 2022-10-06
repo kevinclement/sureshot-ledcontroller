@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <FastLED.h>
+#include <Bounce2.h>
 
 #define PIN_PI_CONTROL A0
 
@@ -15,7 +16,7 @@ CRGB leds[NUM_LEDS];
 CRGB leds_2[NUM_LEDS];
 
 // Controls whether to drive LEDs or use external control
-bool inControlOfLEDs = false;
+bool inControlOfLEDs = true;
 
 // Raspberry pi IN: A0
 //   A0:  IN: Booted Yes/No 
@@ -27,9 +28,11 @@ bool inControlOfLEDs = false;
 //   6:  OUT: Mux Control
 //   A5: OUT: LED Data
 
+Bounce2::Button button = Bounce2::Button();
+
 void setup() {
   Serial.begin(9600);
-  Serial.print("Hello from Metro Mini...\n");
+  Serial.print("SureShot LED Boot by kevinc...\n");
 
   FastLED.addLeds<WS2812, LED_1_DATA, RGB>(leds, NUM_LEDS);
   FastLED.addLeds<WS2812, LED_2_DATA, RGB>(leds_2, NUM_LEDS);
@@ -37,29 +40,42 @@ void setup() {
   pinMode(PIN_PI_CONTROL, INPUT);
   pinMode(LED_1_MUX, OUTPUT);
   pinMode(LED_2_MUX, OUTPUT);
+
+  button.attach(PIN_PI_CONTROL, INPUT);
+  button.interval(5); 
+  button.setPressedState(LOW); 
 }
 
 void loop() {
-  inControlOfLEDs = digitalRead(PIN_PI_CONTROL) == LOW;
-  digitalWrite(LED_1_MUX, inControlOfLEDs ? HIGH : LOW);
-  digitalWrite(LED_2_MUX, inControlOfLEDs ? HIGH : LOW);
+    button.update();
 
-  // for(int i = 0; i < NUM_LEDS; i++) {
-  //   // set our current dot to red, green, and blue
-  //   leds[i] = CRGB::Red;
-  //   leds_2[i] = CRGB::Green;
-  //   FastLED.show();
-  // }
+    if ( button.pressed() ) {
+        if (!inControlOfLEDs) {
+            Serial.print("Taking over control of LEDs...");
+            // leds[0] = CRGB::Blue;
+            // leds[1] = CRGB::Blue;
+            // leds[2] = CRGB::Blue;
+            inControlOfLEDs = true;
+        }
+        else {
+            Serial.print("Giving control of LEDs to FAST...");
+            // leds[0] = CRGB::Red;
+            // leds[1] = CRGB::Red;
+            // leds[2] = CRGB::Red;
+            inControlOfLEDs = false;
+        }
+    }
 
-  leds[0] = CRGB::Blue;
-  leds[1] = CRGB::Blue;
-  leds[2] = CRGB::Blue;
+    digitalWrite(LED_1_MUX, inControlOfLEDs ? HIGH : LOW);
+    digitalWrite(LED_2_MUX, inControlOfLEDs ? HIGH : LOW);
 
-  leds_2[0] = CRGB::Green;
-  leds_2[1] = CRGB::Green;
-  leds_2[2] = CRGB::Green;
+    leds[0] = CRGB::Blue;
+    leds[1] = CRGB::Blue;
+    leds[2] = CRGB::Blue;
 
-  FastLED.show();
+    leds_2[0] = CRGB::Green;
+    leds_2[1] = CRGB::Green;
+    leds_2[2] = CRGB::Green;
 
-  
+    FastLED.show();
 }
