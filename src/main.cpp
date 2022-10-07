@@ -22,6 +22,8 @@
 #define BRIGHTNESS          96
 #define FRAMES_PER_SECOND   120
 #define NUM_TRIANGLE_LEDS   12
+#define HUE_GREEN           96  // Green: found in example lib, under HUE_GREEN
+#define USE_RAINBOW_FADE    true
 int triangle[] = {25, 29, 30, 31, 32, 33, 38, 37, 21, 22, 23, 24};
 
 // Debug flag
@@ -37,7 +39,9 @@ bool inControlOfLEDs = true;
 Bounce bounce = Bounce();
 
 int current_debug_led = 0;
-uint8_t gHue = 0;
+
+// if not using rainbow, use fixed green color
+uint8_t gHue = USE_RAINBOW_FADE ? 0 : HUE_GREEN;
 
 void setup() {
     Serial.begin(9600);
@@ -118,5 +122,9 @@ void loop() {
     FastLED.delay(1000/FRAMES_PER_SECOND); 
 
     // slowly cycle the "base color" through the rainbow
-    EVERY_N_MILLISECONDS( 20 ) { gHue++; } 
+    EVERY_N_MILLISECONDS( 20 ) { 
+        if (USE_RAINBOW_FADE) {
+            gHue++; 
+        }
+    } 
 }
