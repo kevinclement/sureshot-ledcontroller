@@ -30,8 +30,9 @@ int triangle[] = {25, 29, 30, 31, 32, 33, 38, 37, 21, 22, 23, 24};
 #define DEBUG false
 
 // Define the array of leds
-// CRGB leds[NUM_LEDS];
-CRGB leds_2[NUM_LEDS];
+//   NOTE: only currently changing playfield LEDs
+//   but we have access to all of them
+CRGB leds[NUM_LEDS];
 
 // Controls whether to drive LEDs or use external control
 bool inControlOfLEDs = true;
@@ -49,7 +50,7 @@ void setup() {
     Serial.print("Sure Shot LED Controller by kevinc...\n");
 
     // FastLED.addLeds<WS2812, LED_1_DATA, RGB>(leds, NUM_LEDS);
-    FastLED.addLeds<WS2812, LED_2_DATA, GRB>(leds_2, NUM_LEDS)
+    FastLED.addLeds<WS2812, LED_2_DATA, GRB>(leds, NUM_LEDS)
            .setCorrection(TypicalPixelString);
     FastLED.setBrightness(BRIGHTNESS);
 
@@ -63,15 +64,15 @@ void setup() {
 }
 
 void animateCircle() {
-    fadeToBlackBy(leds_2, NUM_LEDS, 20);
+    fadeToBlackBy(leds, NUM_LEDS, 20);
     int pos = beat8(2) % NUM_TRIANGLE_LEDS;
-    leds_2[triangle[pos]] += CHSV(gHue, 255, 192);
+    leds[triangle[pos]] += CHSV(gHue, 255, 192);
 }
 
 void animateBackAndForth() {
-    fadeToBlackBy(leds_2, NUM_LEDS, 20);
+    fadeToBlackBy(leds, NUM_LEDS, 20);
     int pos = beatsin16(13, 0, NUM_TRIANGLE_LEDS-1);
-    leds_2[triangle[pos]] += CHSV(gHue, 255, 192);
+    leds[triangle[pos]] += CHSV(gHue, 255, 192);
 }
 
 void debug() {
@@ -87,7 +88,7 @@ void debug() {
         Serial.print("curent LED: ");
         Serial.println(current_debug_led);
 
-        leds_2[current_debug_led] = CRGB::Blue;
+        leds[current_debug_led] = CRGB::Blue;
         FastLED.show();
     }
 }
