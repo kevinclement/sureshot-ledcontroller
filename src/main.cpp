@@ -24,6 +24,9 @@
 #define NUM_TRIANGLE_LEDS 12
 int triangle[] = {25, 29, 30, 31, 32, 33, 38, 37, 21, 22, 23, 24};
 
+// Debug flag
+#define DEBUG false
+
 // Define the array of leds
 // CRGB leds[NUM_LEDS];
 CRGB leds_2[NUM_LEDS];
@@ -66,14 +69,27 @@ void animateBackAndForth() {
     leds_2[triangle[pos]] += CHSV(gHue, 255, 192);
 }
 
+void debug() {
+    if (!DEBUG) {
+        return;
+    }
+
+    // Read anything from serial and move the pointer to the current LED
+    // Then turn that LED on.  Allows to do a audit of LED to insert.
+    if (Serial.available()) {
+        String str = Serial.readString();
+        current_debug_led++;
+        Serial.print("curent LED: ");
+        Serial.println(current_debug_led);
+
+        leds_2[current_debug_led] = CRGB::Blue;
+        FastLED.show();
+    }
+}
+
 void loop() {
+    debug();
     
-    // if (Serial.available()) {
-    //     String str = Serial.readString();
-    //     currentLed++;
-    //     Serial.print("curent LED: ");
-    //     Serial.println(currentLed);
-    // }
 
     button.update();
 
