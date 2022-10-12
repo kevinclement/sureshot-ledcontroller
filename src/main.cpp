@@ -41,8 +41,8 @@ Bounce bounce = Bounce();
 
 int current_debug_led = 0;
 
-// if not using rainbow, use fixed green color
-uint8_t gHue = USE_RAINBOW_FADE ? 0 : HUE_GREEN;
+// if not using rainbow, use fixed yellow color
+uint8_t gHue = USE_RAINBOW_FADE ? 0 : 64;
 
 void setup() {
     Serial.begin(9600);

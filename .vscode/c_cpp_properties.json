@@ -1,0 +1,60 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "/Users/kevinc/code/github/kevinclement/sureshot/ledcontroller/include",
+                "/Users/kevinc/code/github/kevinclement/sureshot/ledcontroller/src",
+                "/Users/kevinc/code/github/kevinclement/sureshot/ledcontroller/.pio/libdeps/metro/Bounce2/src",
+                "/Users/kevinc/code/github/kevinclement/sureshot/ledcontroller/.pio/libdeps/metro/FastLED/src",
+                "/Users/kevinc/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "/Users/kevinc/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "/Users/kevinc/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "/Users/kevinc/.platformio/packages/framework-arduino-avr/variants/standard",
+                "/Users/kevinc/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "/Users/kevinc/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "/Users/kevinc/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/Users/kevinc/code/github/kevinclement/sureshot/ledcontroller/include",
+                    "/Users/kevinc/code/github/kevinclement/sureshot/ledcontroller/src",
+                    "/Users/kevinc/code/github/kevinclement/sureshot/ledcontroller/.pio/libdeps/metro/Bounce2/src",
+                    "/Users/kevinc/code/github/kevinclement/sureshot/ledcontroller/.pio/libdeps/metro/FastLED/src",
+                    "/Users/kevinc/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "/Users/kevinc/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    "/Users/kevinc/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "/Users/kevinc/.platformio/packages/framework-arduino-avr/variants/standard",
+                    "/Users/kevinc/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "/Users/kevinc/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "/Users/kevinc/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60104",
+                "ARDUINO_AVR_METRO",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega328P__",
+                ""
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "/Users/kevinc/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+            "compilerArgs": [
+                "-mmcu=atmega328p",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
